@@ -32,7 +32,6 @@ namespace ExtentionMethods
             Func<Order,bool> nameFilter = delegate(Order order)
             {
                 return order?.orderName()?[0] == 'a';
-
             };
             Console.WriteLine(orderGroup.Orders.Filter(nameFilter).Total());
 
@@ -78,9 +77,8 @@ namespace ExtentionMethods
                 }
             }
         }
-
-
     }
+
     public class Order
     {
         public string Name { get; set; }
