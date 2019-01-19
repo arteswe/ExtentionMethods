@@ -23,10 +23,12 @@ namespace ExtentionMethods
             var orderGroup = new OrderGroup();
             orderGroup.Orders = orders;
 
-            //man kan använda denna metod på alla typer som implementera IEnumerable<Order> som denna enkla array
+            //man kan använda denna metod på alla typer som implementera IEnumerable<Order>
+            ////även på denna enkla array orders
             Console.WriteLine(orderGroup.Total());
             Console.WriteLine(orders.FilterByPrice(30).Total());
 
+            //returnerar totalen för alla ordrar som börjar på a 
             Func<Order,bool> nameFilter = delegate(Order order)
             {
                 return order?.orderName()?[0] == 'a';
