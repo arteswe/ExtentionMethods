@@ -25,7 +25,10 @@ namespace ExtentionMethods
             //decimal total = orderGroup.Total();
 
             Console.Write(orderGroup.Total());
-            Console.Write("...");
+
+            //man kan använda denna metod på alla typer som implementera IEnumerable<Order> som denna enkla array
+            Console.Write(orders.FilterByPrice(30).Total());
+
             Console.Read();
         }
     }
@@ -46,8 +49,19 @@ namespace ExtentionMethods
             }
             return total;
         }
-    }
 
+        public static IEnumerable<Order> FilterByPrice(this IEnumerable<Order> orders, decimal minPrice)
+        {
+            foreach (Order o in orders)
+            {
+                if((o?.Price ?? 0) >= minPrice){
+                    yield return o;
+                }
+            }
+        }
+
+
+    }
     public class Order
     {
         public decimal Price { get; set; }
@@ -59,7 +73,7 @@ namespace ExtentionMethods
             Price = price;
         }
     }
-    
+
     public class OrderGroup : IEnumerable<Order>
     {
         public IEnumerable<Order> Orders { get; set; }
