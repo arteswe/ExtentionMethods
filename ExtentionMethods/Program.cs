@@ -25,16 +25,23 @@ namespace ExtentionMethods
 
             //man kan använda denna metod på alla typer som implementera IEnumerable<Order>
             ////även på denna enkla array orders
-            Console.WriteLine(orderGroup.Total());
-            Console.WriteLine(orders.FilterByPrice(30).Total());
+            /// 
+            Console.WriteLine("All products: " + orderGroup.Total());
+            Console.WriteLine("Price over 30: " + orders.FilterByPrice(30).Total());
 
             //returnerar totalen för alla ordrar som börjar på a 
             Func<Order,bool> nameFilter = delegate(Order order)
             {
                 return order?.orderName()?[0] == 'a';
             };
-            Console.WriteLine(orderGroup.Orders.Filter(nameFilter).Total());
 
+            Console.WriteLine("delegate name starts with a: " + orderGroup.Orders.Filter(nameFilter).Total());
+
+            //alternativt och enklare sätt att använda delegate med linq
+            decimal nameFilterLinq = orderGroup.Filter(p => (p?.Price ?? 0) >= 50).Total();
+
+            Console.WriteLine("linq, price over 50: " + nameFilterLinq);
+            
             Console.Read();
         }
     }
